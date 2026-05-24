@@ -32,9 +32,9 @@ fun main(){
         val newMask = 32 - log2(blockSize)
 
         val network = currentIp
-        val first = currentIp + 1
-        val last = currentIp + blockSize - 2
-        val broadcast = currentIp + blockSize - 1
+        val first = currentIp + 1L
+        val last = currentIp + blockSize - 2L
+        val broadcast = currentIp + blockSize - 1L
 
         println("\nПодсеть:")
         println("Сеть: ${intToIp(network)}")
@@ -43,7 +43,7 @@ fun main(){
         println("Последний IP: ${intToIp(last)}")
         println("Broadcast: ${intToIp(broadcast)}")
 
-        currentIp += blockSize
+        currentIp += blockSize.toLong()
     }
 }
 
@@ -59,12 +59,12 @@ fun log2(x: Int): Int{
     return n
 }
 
-fun ipToInt(ip: String): Int{
+fun ipToInt(ip: String): Long{
     val parts = ip.split(".")
-    val a = parts[0].toInt()
-    val b = parts[1].toInt()
-    val c = parts[2].toInt()
-    val d = parts[3].toInt()
+    val a = parts[0].toLong()
+    val b = parts[1].toLong()
+    val c = parts[2].toLong()
+    val d = parts[3].toLong()
 
     return a * 256 * 256 * 256 +
             b * 256 * 256 +
@@ -72,7 +72,7 @@ fun ipToInt(ip: String): Int{
             d
 }
 
-fun intToIp(num: Int): String{
+fun intToIp(num: Long): String{
     val a = num / (256 * 256 * 256)
     val b = (num / (256 * 256)) % 256
     val c = (num / 256) % 256
