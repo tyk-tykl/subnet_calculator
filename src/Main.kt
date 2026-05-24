@@ -7,10 +7,14 @@ fun main(){
     print("Введите маску (например 24): ")
     val mask = readLine()!!.toInt()
 
-    print ("Сколько подсетей нужно? ")
+    val totalAddresses = 1 shl (32 - mask)
+
+    print ("Сколько подсетей нужно?: ")
     val count = readLine()!!.toInt()
 
     val hosts = mutableListOf<Int>()
+
+    var usedAddresses = 0
 
     for (i in 1..count){
         print("Введите колчество хостов для подсети $i: ")
@@ -29,6 +33,12 @@ fun main(){
             blockSize *= 2
         }
 
+        if (usedAddresses + blockSize > totalAddresses) {
+            println("\nОшибка: адресов не хватает!")
+            println("Нужно еще $blockSize адресов, но свободных осталось ${totalAddresses - usedAddresses}")
+            return
+        }
+
         val newMask = 32 - log2(blockSize)
 
         val network = currentIp
@@ -44,6 +54,7 @@ fun main(){
         println("Broadcast: ${intToIp(broadcast)}")
 
         currentIp += blockSize.toLong()
+        usedAddresses += blockSize
     }
 }
 
