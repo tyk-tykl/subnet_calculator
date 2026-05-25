@@ -11,14 +11,25 @@ fun main(){
 
     print ("Сколько подсетей нужно?: ")
     val count = readLine()!!.toInt()
+    if (count <= 0) {
+        println("Ошибка: количество подсетей должно быть больше 0")
+        return
+    }
 
     val hosts = mutableListOf<Int>()
 
     var usedAddresses = 0
 
-    for (i in 1..count){
-        print("Введите колчество хостов для подсети $i: ")
-        hosts.add(readLine()!!.toInt())
+    for (i in 1..count) {
+        print("Введите количество хостов для подсети $i: ")
+        val host = readLine()!!.toInt()
+
+        if (host <= 0) {
+            println("Ошибка: количество хостов должно быть больше 0")
+            return
+        }
+
+        hosts.add(host)
     }
 
     hosts.sortDescending()
